@@ -22,5 +22,5 @@ jobs:
             const labelsPresent = allLabels.some((label) => requiredLabels.includes(label))
             
             if (!labelsPresent) {
-              throw new Error("All pull requests require at least one label")
+              throw new Error("All pull requests require at least one of the required labels `${requiredLabels}`")
             }
