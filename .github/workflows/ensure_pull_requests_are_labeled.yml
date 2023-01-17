@@ -12,17 +12,15 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
+            const requiredLabels = ["security", "feature", "bug", "perf", "refactor", "maintenance", "docs"]
             const {data: allLabels} = await github.rest.issues.listLabelsOnIssue({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
             
-            const labels = allLabels.filter(label => !label.name.includes("waiting"))
+            const labelsPresent = allLabels.some((label) => requiredLabels.includes(label))
             
-            if (labels.length > 0) {
-              console.log(labels)
-            } else {
+            if (!labelsPresent) {
               throw new Error("All pull requests require at least one label")
-              // instead maybe just add a label?
             }
