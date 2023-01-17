@@ -21,7 +21,7 @@ jobs:
             console.log(labels)
             
             const requiredLabels = ["security", "feature", "bug", "perf", "refactor", "maintenance", "docs"]
-            const labelsPresent = labels.some((label) => requiredLabels.includes(label))
+            const labelsPresent = labels.some((label) => requiredLabels.includes(label.name))
             
             if (!labelsPresent) {
               throw new Error(`All pull requests require at least one of the required labels ${requiredLabels}`)
